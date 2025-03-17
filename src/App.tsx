@@ -7,7 +7,7 @@ const client = generateClient<Schema>();
 
 function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-  const { signOut } = useAuthenticator();
+  const { user, signOut } = useAuthenticator();
 
   useEffect(() => {
     client.models.Todo.observeQuery().subscribe({
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <main>
-      <h1>Tareas por hacer</h1>
+      <h1>Las tareas por hacer de {user?.signInDetails?.loginId}</h1>
       <button onClick={createTodo}>+ nuevo</button>
       <ul>
         {todos.map((todo) => (
